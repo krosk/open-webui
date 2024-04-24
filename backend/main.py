@@ -82,7 +82,7 @@ https://github.com/open-webui/open-webui
 """
 )
 
-app = FastAPI(docs_url="/docs" if ENV == "dev" else None, redoc_url=None)
+app = FastAPI(docs_url="/docs" if ENV == "dev" else None, redoc_url=None, root_path=WEBUI_BASE_PATH)
 
 app.state.MODEL_FILTER_ENABLED = MODEL_FILTER_ENABLED
 app.state.MODEL_FILTER_LIST = MODEL_FILTER_LIST
