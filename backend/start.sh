@@ -29,4 +29,6 @@ if [ "$USE_CUDA_DOCKER" = "true" ]; then
   export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib/python3.11/site-packages/torch/lib:/usr/local/lib/python3.11/site-packages/nvidia/cudnn/lib"
 fi
 
-WEBUI_SECRET_KEY="$WEBUI_SECRET_KEY" exec uvicorn main:app --host 0.0.0.0 --port "$PORT" --forwarded-allow-ips '*'
+find /app/build -type f -exec sed -i "s|/BASEHREF|$WEBUI_BASE_PATH|g" {} ";"
+
+WEBUI_SECRET_KEY="$WEBUI_SECRET_KEY" exec uvicorn main:app --host 0.0.0.0 --port "$PORT" --forwarded-allow-ips '*' --root-path "$WEBUI_BASE_PATH"
